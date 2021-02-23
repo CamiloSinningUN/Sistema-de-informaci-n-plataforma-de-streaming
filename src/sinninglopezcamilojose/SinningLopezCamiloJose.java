@@ -48,31 +48,52 @@ public class SinningLopezCamiloJose {
                 }
             } else if (command.contains("add")) {
                 if (command.equals("addD")) {
-                    addDonation();
+                    System.out.println("Insert the donation id");
+                    BigDecimal id = new BigDecimal(sc.nextInt());
+                    sc.nextLine();
+                    System.out.println("Insert the donation message");
+                    String msg = sc.nextLine();
+                    System.out.println("Insert the money");
+                    float money = sc.nextInt();
+                    addDonation(id,msg,money);
                 } else if (command.equals("addS")) {
-                    addStreamer();
+                    System.out.println("Insert the streamer id");
+                    BigDecimal id = new BigDecimal(sc.nextInt());
+                    sc.nextLine();
+                    System.out.println("Insert the Streamer username");
+                    String username = sc.nextLine();
+                    System.out.println("Insert the number of followers");
+                    float followers = sc.nextInt();
+                    addStreamer(id, username, followers);
                 } else if (command.equals("addV")) {
-                    addViewer();
+                    System.out.println("Insert the viewer id");
+                    BigDecimal id = new BigDecimal(sc.next());
+                    sc.nextLine();
+                    System.out.println("Insert the viewer nickname");
+                    String nickname = sc.nextLine();
+                    System.out.println("Insert the hours watched");
+                    float hours = sc.nextInt();
+                    addViewer(id, nickname, hours);
                 }
                 saved = false;
             } else if (command.contains("show")) {
                 if (command.equals("showD")) {
-                    showDonations();
+                    System.out.println(showDonations());
                 } else if (command.equals("showS")) {
-                    showStreamers();
+                    System.out.println(showStreamers());
                 } else if (command.equals("showV")) {
-                    showViewers();
+                    System.out.println(showViewers());
                 }
             } else if (command.contains("sort")) {
                 if (command.equals("sortD")) {
                     sortDonations();
-                    showDonations();
+                    System.out.println(showDonations());
                 } else if (command.equals("sortS")) {
                     sortStreamers();
-                    showStreamers();
+                    System.out.println(showStreamers());
                 } else if (command.equals("sortV")) {
                     sortViewers();
-                    showViewers();
+                    System.out.println(showViewers());
                 }
                 saved = false;
             } else if (command.equals("save")) {
@@ -83,11 +104,11 @@ public class SinningLopezCamiloJose {
                 System.out.println("Saved");
             } else if (command.contains("calc")) {
                 if (command.equals("calcD")) {
-                    calcDonations();
+                    System.out.println(calcDonations());
                 } else if (command.equals("calcS")) {
-                    calcStreamers();
+                    System.out.println(calcStreamers());
                 } else if (command.equals("calcV")) {
-                    calcViewers();
+                    System.out.println(calcViewers());
                 }
             } else if (command.contains("help")) {
                 help();
@@ -98,11 +119,11 @@ public class SinningLopezCamiloJose {
             } else if (command.contains("search")) {
                 BigDecimal id = new BigDecimal(command.substring(7));
                 if (command.contains("searchD")) {
-                    searchDonation(id);
+                    System.out.println(searchDonation(id));
                 } else if (command.contains("searchS")) {
-                    searchStreamer(id);
+                    System.out.println(searchStreamer(id));
                 } else if (command.contains("searchV")) {
-                    searchViewer(id);
+                    System.out.println(searchViewer(id));
                 }
             }
 
@@ -139,15 +160,10 @@ public class SinningLopezCamiloJose {
         av.write(myViewers);
     }
 
-    public static void deleteViewer() {
-
-    }
-
     public static void sortViewers() {
         ListViewers p = new ListViewers();
         ListViewers q = new ListViewers();
         p = myViewers;
-        
 
         while ((p.link != null) && (p.link.myViewer != null)) {
             q = myViewers;
@@ -164,7 +180,7 @@ public class SinningLopezCamiloJose {
         }
     }
 
-    public static void calcViewers() {
+    public static String calcViewers() {
         ListViewers min = new ListViewers();
         float minHours;
         ListViewers max = new ListViewers();
@@ -196,49 +212,43 @@ public class SinningLopezCamiloJose {
         }
         promHours = total / nViewers;
 
-        System.out.println("The viewer with the maximum hours is: ");
-        System.out.println("--------------------------------------");
-        System.out.println("Id: " + max.myViewer.idViewer);
-        System.out.println("Nickname: " + max.myViewer.nickName);
-        System.out.println("Hours: " + max.myViewer.Hours);
-        System.out.println("--------------------------------------");
-        System.out.println("The viewer with the minimum hours is: ");
-        System.out.println("--------------------------------------");
-        System.out.println("Id: " + min.myViewer.idViewer);
-        System.out.println("Nickname: " + min.myViewer.nickName);
-        System.out.println("Hours: " + min.myViewer.Hours);
-        System.out.println("--------------------------------------");
-        System.out.println("Average hours: " + promHours);
-
+        String result = "The viewer with the maximum hours is: "
+                + "\n--------------------------------------"
+                + "\nId: " + max.myViewer.idViewer
+                + "\nNickname: " + max.myViewer.nickName
+                + "\nHours: " + max.myViewer.Hours
+                + "\n--------------------------------------"
+                + "\nThe viewer with the minimum hours is: "
+                + "\n--------------------------------------"
+                + "\nId: " + min.myViewer.idViewer
+                + "\nNickname: " + min.myViewer.nickName
+                + "\nHours: " + min.myViewer.Hours
+                + "\n--------------------------------------"
+                + "\nAverage hours: " + promHours;
+        return result;
     }
 
-    public static void searchViewer(BigDecimal idViewer) {
+    public static String searchViewer(BigDecimal idViewer) {
         ListViewers p = new ListViewers();
         p = myViewers;
         while ((p.myViewer.idViewer != idViewer) && (p != null)) {
             p = p.link;
         }
+
+        String result;
         if (p.myViewer.idViewer == idViewer) {
-            System.out.println("The viewer was found");
-            System.out.println("--------------------------");
-            System.out.println("Nickname: " + p.myViewer.nickName);
-            System.out.println("hours: " + p.myViewer.Hours);
-            System.out.println("--------------------------");
+            result = "The viewer was found"
+                    + "\n--------------------------"
+                    + "\nNickname: " + p.myViewer.nickName
+                    + "\nhours: " + p.myViewer.Hours
+                    + "\n--------------------------";
         } else {
-            System.out.println("The viewer don´t exist");
+            result = "The viewer don´t exist";
         }
+        return result;
     }
 
-    public static void addViewer() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Insert the viewer id");
-        BigDecimal id = new BigDecimal(sc.next());
-        sc.nextLine();
-        System.out.println("Insert the viewer nickname");
-        String nickname = sc.nextLine();
-        System.out.println("Insert the hours watched");
-        float hours = sc.nextInt();
-
+    public static void addViewer(BigDecimal id, String nickname, float hours) {
         Viewer d = new Viewer(id, nickname, hours);
         ListViewers p = new ListViewers();
         p = myViewers;
@@ -255,18 +265,20 @@ public class SinningLopezCamiloJose {
         }
     }
 
-    public static void showViewers() {
-        System.out.println("The viewers list is: ");
-        System.out.println("--------------------------");
+    public static String showViewers() {
+        String result;
+        result = "The viewers list is: "
+                + "\n--------------------------";
         ListViewers p = new ListViewers();
         p = myViewers;
         while ((p != null) && (p.myViewer != null)) {
-            System.out.println("Viewer: " + p.myViewer.idViewer);
-            System.out.println("Username: " + p.myViewer.nickName);
-            System.out.println("Followers: " + p.myViewer.Hours);
-            System.out.println("---------------------------");
+            result = result + "\nViewer: " + p.myViewer.idViewer
+                    + "\nUsername: " + p.myViewer.nickName
+                    + "\nFollowers: " + p.myViewer.Hours
+                    + "\n---------------------------";
             p = p.link;
         }
+        return result;
     }
     //</editor-fold>
 
@@ -275,15 +287,10 @@ public class SinningLopezCamiloJose {
         as.write(myStreamers);
     }
 
-    public static void deleteStreamer() {
-
-    }
-
     public static void sortStreamers() {
         ListStreamers p = new ListStreamers();
         ListStreamers q = new ListStreamers();
         p = myStreamers;
-        
 
         while ((p.link != null) && (p.link.myStreamer != null)) {
             q = myStreamers;
@@ -300,7 +307,7 @@ public class SinningLopezCamiloJose {
         }
     }
 
-    public static void calcStreamers() {
+    public static String calcStreamers() {
         ListStreamers min = new ListStreamers();
         float minFollowers;
         ListStreamers max = new ListStreamers();
@@ -331,49 +338,44 @@ public class SinningLopezCamiloJose {
             p = p.link;
         }
         promFollowers = total / nStreamers;
-
-        System.out.println("The streamer with the maximum followers is: ");
-        System.out.println("--------------------------------------");
-        System.out.println("Id: " + max.myStreamer.idStreamer);
-        System.out.println("Username: " + max.myStreamer.userName);
-        System.out.println("Followers: " + max.myStreamer.followers);
-        System.out.println("--------------------------------------");
-        System.out.println("The streamer with the maximum followers is: ");
-        System.out.println("--------------------------------------");
-        System.out.println("Id: " + min.myStreamer.idStreamer);
-        System.out.println("Username: " + min.myStreamer.userName);
-        System.out.println("Followers: " + min.myStreamer.followers);
-        System.out.println("--------------------------------------");
-        System.out.println("Average followers: " + promFollowers);
+        String result;
+        result = "\nThe streamer with the maximum followers is: "
+                + "\n--------------------------------------"
+                + "\nId: " + max.myStreamer.idStreamer
+                + "\nUsername: " + max.myStreamer.userName
+                + "\nFollowers: " + max.myStreamer.followers
+                + "\n--------------------------------------"
+                + "\nThe streamer with the maximum followers is: "
+                + "\n--------------------------------------"
+                + "\nId: " + min.myStreamer.idStreamer
+                + "\nUsername: " + min.myStreamer.userName
+                + "\nFollowers: " + min.myStreamer.followers
+                + "\n--------------------------------------"
+                + "\nAverage followers: " + promFollowers;
+        return result;
 
     }
 
-    public static void searchStreamer(BigDecimal idStreamer) {
+    public static String searchStreamer(BigDecimal idStreamer) {
         ListStreamers p = new ListStreamers();
         p = myStreamers;
         while ((p.myStreamer.idStreamer != idStreamer) && (p != null)) {
             p = p.link;
         }
+        String result;
         if (p.myStreamer.idStreamer == idStreamer) {
-            System.out.println("The streamer was found");
-            System.out.println("------------------------");
-            System.out.println("Username: " + p.myStreamer.userName);
-            System.out.println("Followers: " + p.myStreamer.followers);
-            System.out.println("--------------------------");
+            result = "The streamer was found"
+                    + "\n------------------------"
+                    + "\nUsername: " + p.myStreamer.userName
+                    + "\nFollowers: " + p.myStreamer.followers
+                    + "\n--------------------------";
         } else {
-            System.out.println("The streamer don´t exist");
+            result = "The streamer don´t exist";
         }
+        return result;
     }
 
-    public static void addStreamer() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Insert the streamer id");
-        BigDecimal id = new BigDecimal(sc.nextInt());
-        sc.nextLine();
-        System.out.println("Insert the Streamer username");
-        String username = sc.nextLine();
-        System.out.println("Insert the number of followers");
-        float followers = sc.nextInt();
+    public static void addStreamer(BigDecimal id, String username, float followers) {
 
         Streamer d = new Streamer(id, username, followers);
         ListStreamers p = new ListStreamers();
@@ -391,18 +393,19 @@ public class SinningLopezCamiloJose {
         }
     }
 
-    public static void showStreamers() {
-        System.out.println("The Streamers list is: ");
-        System.out.println("--------------------------");
+    public static String showStreamers() {
+        String result = "The Streamers list is: "
+                + "\n--------------------------";
         ListStreamers p = new ListStreamers();
         p = myStreamers;
         while ((p != null) && (p.myStreamer != null)) {
-            System.out.println("Streamer: " + p.myStreamer.idStreamer);
-            System.out.println("Username: " + p.myStreamer.userName);
-            System.out.println("Followers: " + p.myStreamer.followers);
-            System.out.println("---------------------------");
+            result = result + "\nStreamer: " + p.myStreamer.idStreamer
+                    + "\nUsername: " + p.myStreamer.userName
+                    + "\nFollowers: " + p.myStreamer.followers
+                    + "\n---------------------------";
             p = p.link;
         }
+        return result;
     }
     //</editor-fold>
 
@@ -411,15 +414,10 @@ public class SinningLopezCamiloJose {
         ad.write(myDonations);
     }
 
-    public static void deleteDonation() {
-
-    }
-
     public static void sortDonations() {
         ListDonations p = new ListDonations();
         ListDonations q = new ListDonations();
         p = myDonations;
-        
 
         while ((p.link != null) && (p.link.myDonation != null)) {
             q = myDonations;
@@ -436,7 +434,7 @@ public class SinningLopezCamiloJose {
         }
     }
 
-    public static void calcDonations() {
+    public static String calcDonations() {
         ListDonations min = new ListDonations();
         float minMoney;
         ListDonations max = new ListDonations();
@@ -468,48 +466,42 @@ public class SinningLopezCamiloJose {
         }
         promMoney = total / nDonations;
 
-        System.out.println("The donation with the maximum money is: ");
-        System.out.println("--------------------------------------");
-        System.out.println("Id: " + max.myDonation.idDonations);
-        System.out.println("Message: " + max.myDonation.msg);
-        System.out.println("Money: " + max.myDonation.money);
-        System.out.println("--------------------------------------");
-        System.out.println("The donation with the minimum money is: ");
-        System.out.println("--------------------------------------");
-        System.out.println("Id: " + min.myDonation.idDonations);
-        System.out.println("Message: " + min.myDonation.msg);
-        System.out.println("Money: " + min.myDonation.money);
-        System.out.println("--------------------------------------");
-        System.out.println("Average money: " + promMoney);
+        String result = "The donation with the maximum money is: "
+                + "\n--------------------------------------"
+                + "\nId: " + max.myDonation.idDonations
+                + "\nMessage: " + max.myDonation.msg
+                + "\nMoney: " + max.myDonation.money
+                + "\n--------------------------------------"
+                + "\nThe donation with the minimum money is: "
+                + "\n--------------------------------------"
+                + "\nId: " + min.myDonation.idDonations
+                + "\nMessage: " + min.myDonation.msg
+                + "\nMoney: " + min.myDonation.money
+                + "\n--------------------------------------"
+                + "\nAverage money: " + promMoney;
+        return result;
     }
 
-    public static void searchDonation(BigDecimal idDonation) {
+    public static String searchDonation(BigDecimal idDonation) {
         ListDonations p = new ListDonations();
         p = myDonations;
         while ((p.myDonation.idDonations.compareTo(idDonation) != 0) && (p != null)) {
             p = p.link;
         }
-        if (p.myDonation.idDonations.compareTo(idDonation)==0) {
-            System.out.println("The donation was found");
-            System.out.println("------------------------");
-            System.out.println("Message: " + p.myDonation.msg);
-            System.out.println("Money: " + p.myDonation.money);
-            System.out.println("--------------------------");
+        String result;
+        if (p.myDonation.idDonations.compareTo(idDonation) == 0) {
+            result = "The donation was found"
+                    + "\n------------------------"
+                    + "\nMessage: " + p.myDonation.msg
+                    + "\nMoney: " + p.myDonation.money
+                    + "\n--------------------------";
         } else {
-            System.out.println("The donation don´t exist");
+            result = "The donation don´t exist";
         }
+        return result;
     }
 
-    public static void addDonation() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Insert the donation id");
-        BigDecimal id = new BigDecimal(sc.nextInt());
-        sc.nextLine();
-        System.out.println("Insert the donation message");
-        String msg = sc.nextLine();
-        System.out.println("Insert the money");
-        float money = sc.nextInt();
-
+    public static void addDonation(BigDecimal id, String msg, float money) {
         Donations d = new Donations(id, msg, money);
         ListDonations p = new ListDonations();
         p = myDonations;
@@ -526,18 +518,19 @@ public class SinningLopezCamiloJose {
         }
     }
 
-    public static void showDonations() {
-        System.out.println("The donation list is: ");
-        System.out.println("--------------------------");
+    public static String showDonations() {
+        String  result = "The donation list is: "
+        +"\n--------------------------";
         ListDonations p = new ListDonations();
         p = myDonations;
         while ((p != null) && (p.myDonation != null)) {
-            System.out.println("Donation: " + p.myDonation.idDonations);
-            System.out.println("Message: " + p.myDonation.msg);
-            System.out.println("Money: " + p.myDonation.money);
-            System.out.println("---------------------------");
+            result = result + "\nDonation: " + p.myDonation.idDonations
+            +"\nMessage: " + p.myDonation.msg
+            +"\nMoney: " + p.myDonation.money
+            +"\n---------------------------";
             p = p.link;
         }
+        return result;
     }
     //</editor-fold>
 

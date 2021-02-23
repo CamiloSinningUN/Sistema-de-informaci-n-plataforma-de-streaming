@@ -12,13 +12,28 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Scanner;
 import static sinninglopezcamilojose.SinningLopezCamiloJose.ad;
+import static sinninglopezcamilojose.SinningLopezCamiloJose.addDonation;
+import static sinninglopezcamilojose.SinningLopezCamiloJose.addStreamer;
+import static sinninglopezcamilojose.SinningLopezCamiloJose.addViewer;
 import static sinninglopezcamilojose.SinningLopezCamiloJose.as;
 import static sinninglopezcamilojose.SinningLopezCamiloJose.av;
+import static sinninglopezcamilojose.SinningLopezCamiloJose.calcDonations;
+import static sinninglopezcamilojose.SinningLopezCamiloJose.calcStreamers;
+import static sinninglopezcamilojose.SinningLopezCamiloJose.calcViewers;
 import static sinninglopezcamilojose.SinningLopezCamiloJose.myViewers;
 import static sinninglopezcamilojose.SinningLopezCamiloJose.myStreamers;
 import static sinninglopezcamilojose.SinningLopezCamiloJose.myDonations;
 import static sinninglopezcamilojose.SinningLopezCamiloJose.myStreamers;
 import static sinninglopezcamilojose.SinningLopezCamiloJose.myViewers;
+import static sinninglopezcamilojose.SinningLopezCamiloJose.searchDonation;
+import static sinninglopezcamilojose.SinningLopezCamiloJose.searchStreamer;
+import static sinninglopezcamilojose.SinningLopezCamiloJose.searchViewer;
+import static sinninglopezcamilojose.SinningLopezCamiloJose.showDonations;
+import static sinninglopezcamilojose.SinningLopezCamiloJose.showStreamers;
+import static sinninglopezcamilojose.SinningLopezCamiloJose.showViewers;
+import static sinninglopezcamilojose.SinningLopezCamiloJose.sortDonations;
+import static sinninglopezcamilojose.SinningLopezCamiloJose.sortStreamers;
+import static sinninglopezcamilojose.SinningLopezCamiloJose.sortViewers;
 
 /**
  *
@@ -337,97 +352,26 @@ public class FE extends javax.swing.JFrame {
 
     private void showButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showButtonActionPerformed
         if (showComboBox.getSelectedIndex() == 0) {
-            textArea.setText("The donation list is: ");
-            textArea.append("\n--------------------------");
-            ListDonations p = new ListDonations();
-            p = myDonations;
-            while ((p != null) && (p.myDonation != null)) {
-                textArea.append("\nDonation: " + p.myDonation.idDonations);
-                textArea.append("\nMessage: " + p.myDonation.msg);
-                textArea.append("\nMoney: " + p.myDonation.money);
-                textArea.append("\n---------------------------");
-                p = p.link;
-            }
+            textArea.setText(showDonations());
         }
         if (showComboBox.getSelectedIndex() == 1) {
-            textArea.setText("The Streamers list is: ");
-            textArea.append("\n--------------------------");
-            ListStreamers p = new ListStreamers();
-            p = myStreamers;
-            while ((p != null) && (p.myStreamer != null)) {
-                textArea.append("\nStreamer: " + p.myStreamer.idStreamer);
-                textArea.append("\nUsername: " + p.myStreamer.userName);
-                textArea.append("\nFollowers: " + p.myStreamer.followers);
-                textArea.append("\n---------------------------");
-                p = p.link;
-            }
+            textArea.setText(showStreamers());
         }
         if (showComboBox.getSelectedIndex() == 2) {
-            textArea.setText("The viewers list is: ");
-            textArea.append("\n--------------------------");
-            ListViewers p = new ListViewers();
-            p = myViewers;
-            while ((p != null) && (p.myViewer != null)) {
-                textArea.append("\nViewer: " + p.myViewer.idViewer);
-                textArea.append("\nUsername: " + p.myViewer.nickName);
-                textArea.append("\nFollowers: " + p.myViewer.Hours);
-                textArea.append("\n---------------------------");
-                p = p.link;
-            }
+            textArea.setText(showViewers());           
         }
-
-
     }//GEN-LAST:event_showButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         BigDecimal id = new BigDecimal(searchTextField.getText());
         if (searchComboBox.getSelectedIndex() == 0) {
-            ListDonations p = new ListDonations();
-            p = myDonations;
-            while ((p.myDonation.idDonations.compareTo(id) != 0) && (p != null)) {
-                p = p.link;
-            }
-            if (p.myDonation.idDonations.compareTo(id) == 0) {
-                textArea.setText("The donation was found");
-                textArea.append("\n------------------------");
-                textArea.append("\nMessage: " + p.myDonation.msg);
-                textArea.append("\nMoney: " + p.myDonation.money);
-                textArea.append("\n-------------------------");
-            } else {
-                textArea.setText("The donation doesn´t exist");
-            }
+            textArea.setText(searchDonation(id));
         }
         if (searchComboBox.getSelectedIndex() == 1) {
-            ListStreamers p = new ListStreamers();
-            p = myStreamers;
-            while ((p.myStreamer.idStreamer.compareTo(id) != 0) && (p != null)) {
-                p = p.link;
-            }
-            if (p.myStreamer.idStreamer.compareTo(id) == 0) {
-                textArea.setText("The streamer was found");
-                textArea.append("\n------------------------");
-                textArea.append("\nUsername: " + p.myStreamer.userName);
-                textArea.append("\nFollowers: " + p.myStreamer.followers);
-                textArea.append("\n--------------------------");
-            } else {
-                textArea.setText("The streamer don´t exist");
-            }
+            textArea.setText(searchStreamer(id));
         }
         if (searchComboBox.getSelectedIndex() == 2) {
-            ListViewers p = new ListViewers();
-            p = myViewers;
-            while ((p.myViewer.idViewer.compareTo(id) != 0) && (p != null)) {
-                p = p.link;
-            }
-            if (p.myViewer.idViewer.compareTo(id) == 0) {
-                textArea.setText("The viewer was found");
-                textArea.append("\n--------------------------");
-                textArea.append("\nNickname: " + p.myViewer.nickName);
-                textArea.append("\nhours: " + p.myViewer.Hours);
-                textArea.append("\n--------------------------");
-            } else {
-                textArea.setText("The viewer don´t exist");
-            }
+            textArea.setText(searchViewer(id));
         }
 
 
@@ -435,203 +379,26 @@ public class FE extends javax.swing.JFrame {
 
     private void calcButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcButtonActionPerformed
         if (calcComboBox.getSelectedIndex() == 0) {
-            ListDonations min = new ListDonations();
-            float minMoney;
-            ListDonations max = new ListDonations();
-            float maxMoney;
-
-            float promMoney;
-            float total = 0;
-            int nDonations = 0;
-
-            ListDonations p = new ListDonations();
-            p = myDonations;
-            minMoney = p.myDonation.money;
-            maxMoney = p.myDonation.money;
-            min.myDonation = p.myDonation;
-            max.myDonation = p.myDonation;
-            while ((p != null) && (p.myDonation != null)) {
-                if (p.myDonation.money > maxMoney) {
-                    maxMoney = p.myDonation.money;
-                    max.myDonation = p.myDonation;
-                }
-                if (p.myDonation.money < minMoney) {
-                    minMoney = p.myDonation.money;
-                    min.myDonation = p.myDonation;
-                }
-
-                total = total + p.myDonation.money;
-                nDonations++;
-                p = p.link;
-            }
-            promMoney = total / nDonations;
-
-            textArea.setText("The donation with the maximum money is: ");
-            textArea.append("\n--------------------------------------");
-            textArea.append("\nId: " + max.myDonation.idDonations);
-            textArea.append("\nMessage: " + max.myDonation.msg);
-            textArea.append("\nMoney: " + max.myDonation.money);
-            textArea.append("\n--------------------------------------");
-            textArea.append("\nThe donation with the minimum money is: ");
-            textArea.append("\n--------------------------------------");
-            textArea.append("\nId: " + min.myDonation.idDonations);
-            textArea.append("\nMessage: " + min.myDonation.msg);
-            textArea.append("\nMoney: " + min.myDonation.money);
-            textArea.append("\n--------------------------------------");
-            textArea.append("\nAverage money: " + promMoney);
+           textArea.setText(calcDonations());
         }
         if (calcComboBox.getSelectedIndex() == 1) {
-            ListStreamers min = new ListStreamers();
-            float minFollowers;
-            ListStreamers max = new ListStreamers();
-            float maxFollowers;
-
-            float promFollowers;
-            float total = 0;
-            int nStreamers = 0;
-
-            ListStreamers p = new ListStreamers();
-            p = myStreamers;
-            minFollowers = p.myStreamer.followers;
-            maxFollowers = p.myStreamer.followers;
-            min.myStreamer = p.myStreamer;
-            max.myStreamer = p.myStreamer;
-            while ((p != null) && (p.myStreamer != null)) {
-                if (p.myStreamer.followers > maxFollowers) {
-                    maxFollowers = p.myStreamer.followers;
-                    max.myStreamer = p.myStreamer;
-                }
-                if (p.myStreamer.followers < minFollowers) {
-                    minFollowers = p.myStreamer.followers;
-                    min.myStreamer = p.myStreamer;
-                }
-
-                total = total + p.myStreamer.followers;
-                nStreamers++;
-                p = p.link;
-            }
-            promFollowers = total / nStreamers;
-
-            textArea.setText("The streamer with the maximum followers is: ");
-            textArea.append("\n--------------------------------------");
-            textArea.append("\nId: " + max.myStreamer.idStreamer);
-            textArea.append("\nUsername: " + max.myStreamer.userName);
-            textArea.append("\nFollowers: " + max.myStreamer.followers);
-            textArea.append("\n--------------------------------------");
-            textArea.append("\nThe streamer with the maximum followers is: ");
-            textArea.append("\n--------------------------------------");
-            textArea.append("\nId: " + min.myStreamer.idStreamer);
-            textArea.append("\nUsername: " + min.myStreamer.userName);
-            textArea.append("\nFollowers: " + min.myStreamer.followers);
-            textArea.append("\n--------------------------------------");
-            textArea.append("\nAverage followers: " + promFollowers);
+            textArea.setText(calcStreamers());
 
         }
         if (calcComboBox.getSelectedIndex() == 2) {
-            ListViewers min = new ListViewers();
-            float minHours;
-            ListViewers max = new ListViewers();
-            float maxHours;
-
-            float promHours;
-            float total = 0;
-            int nViewers = 0;
-
-            ListViewers p = new ListViewers();
-            p = myViewers;
-            minHours = p.myViewer.Hours;
-            maxHours = p.myViewer.Hours;
-            min.myViewer = p.myViewer;
-            max.myViewer = p.myViewer;
-            while ((p != null) && (p.myViewer != null)) {
-                if (p.myViewer.Hours > maxHours) {
-                    maxHours = p.myViewer.Hours;
-                    max.myViewer = p.myViewer;
-                }
-                if (p.myViewer.Hours < minHours) {
-                    minHours = p.myViewer.Hours;
-                    min.myViewer = p.myViewer;
-                }
-
-                total = total + p.myViewer.Hours;
-                nViewers++;
-                p = p.link;
-            }
-            promHours = total / nViewers;
-
-            textArea.setText("The viewer with the maximum hours is: ");
-            textArea.append("\n--------------------------------------");
-            textArea.append("\nId: " + max.myViewer.idViewer);
-            textArea.append("\nNickname: " + max.myViewer.nickName);
-            textArea.append("\nHours: " + max.myViewer.Hours);
-            textArea.append("\n--------------------------------------");
-            textArea.append("\nThe viewer with the minimum hours is: ");
-            textArea.append("\n--------------------------------------");
-            textArea.append("\nId: " + min.myViewer.idViewer);
-            textArea.append("\nNickname: " + min.myViewer.nickName);
-            textArea.append("\nHours: " + min.myViewer.Hours);
-            textArea.append("\n--------------------------------------");
-            textArea.append("\nAverage hours: " + promHours);
-
+            textArea.setText(calcViewers());
         }
     }//GEN-LAST:event_calcButtonActionPerformed
 
     private void sortButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortButtonActionPerformed
         if (sortComboBox.getSelectedIndex() == 0) {
-            ListDonations p = new ListDonations();
-            ListDonations q = new ListDonations();
-            p = myDonations;
-            while ((p.link != null) && (p.link.myDonation != null)) {
-                q = myDonations;
-                while ((q.link != null) && (q.link.myDonation != null)) {
-                    if (q.myDonation.money > q.link.myDonation.money) {
-                        ListDonations temp = new ListDonations();
-                        temp.myDonation = q.myDonation;
-                        q.myDonation = q.link.myDonation;
-                        q.link.myDonation = temp.myDonation;
-                    }
-                    q = q.link;
-                }
-                p = p.link;
-            }
+            sortDonations();
         }
         if (sortComboBox.getSelectedIndex() == 1) {
-            ListStreamers p = new ListStreamers();
-            ListStreamers q = new ListStreamers();
-            p = myStreamers;
-
-            while ((p.link != null) && (p.link.myStreamer != null)) {
-                q = myStreamers;
-                while ((q.link != null) && (q.link.myStreamer != null)) {
-                    if (q.myStreamer.followers > q.link.myStreamer.followers) {
-                        ListStreamers temp = new ListStreamers();
-                        temp.myStreamer = q.myStreamer;
-                        q.myStreamer = q.link.myStreamer;
-                        q.link.myStreamer = temp.myStreamer;
-                    }
-                    q = q.link;
-                }
-                p = p.link;
-            }
+            sortStreamers();
         }
         if (sortComboBox.getSelectedIndex() == 2) {
-            ListViewers p = new ListViewers();
-            ListViewers q = new ListViewers();
-            p = myViewers;
-
-            while ((p.link != null) && (p.link.myViewer != null)) {
-                q = myViewers;
-                while ((q.link != null) && (q.link.myViewer != null)) {
-                    if (q.myViewer.Hours > q.link.myViewer.Hours) {
-                        ListViewers temp = new ListViewers();
-                        temp.myViewer = q.myViewer;
-                        q.myViewer = q.link.myViewer;
-                        q.link.myViewer = temp.myViewer;
-                    }
-                    q = q.link;
-                }
-                p = p.link;
-            }
+            sortViewers();
         }
     }//GEN-LAST:event_sortButtonActionPerformed
 
@@ -640,51 +407,13 @@ public class FE extends javax.swing.JFrame {
         String name = stringAddTextField.getText();
         float nfloat = Float.parseFloat(floatAddTextField.getText());
         if (addComboBox.getSelectedIndex() == 0) {
-            Donations d = new Donations(id, name, nfloat);
-            ListDonations p = new ListDonations();
-            p = myDonations;
-
-            if (p.myDonation == null) {
-                myDonations.myDonation = d;
-            } else {
-                while (p.link != null) {
-                    p = p.link;
-                }
-                ListDonations q = new ListDonations();
-                p.link = q;
-                q.myDonation = d;
-            }
+            addDonation(id,name,nfloat);
         }
         if (addComboBox.getSelectedIndex() == 1) {
-            Streamer d = new Streamer(id, name, nfloat);
-            ListStreamers p = new ListStreamers();
-            p = myStreamers;
-
-            if (p.myStreamer == null) {
-                myStreamers.myStreamer = d;
-            } else {
-                while (p.link != null) {
-                    p = p.link;
-                }
-                ListStreamers q = new ListStreamers();
-                p.link = q;
-                q.myStreamer = d;
-            }
+            addStreamer(id,name,nfloat);
         }
         if (addComboBox.getSelectedIndex() == 2) {
-            Viewer d = new Viewer(id, name, nfloat);
-            ListViewers p = new ListViewers();
-            p = myViewers;
-            if (p.myViewer == null) {
-                myViewers.myViewer = d;
-            } else {
-                while (p.link != null) {
-                    p = p.link;
-                }
-                ListViewers q = new ListViewers();
-                p.link = q;
-                q.myViewer = d;
-            }
+            addViewer(id,name,nfloat);
         }
     }//GEN-LAST:event_addButtonActionPerformed
 
