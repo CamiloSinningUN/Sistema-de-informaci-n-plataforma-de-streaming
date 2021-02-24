@@ -28,6 +28,7 @@ public class SinningLopezCamiloJose {
 
         boolean running = true;
         boolean saved = true;
+        boolean generated = false;
         System.out.println("(Type help to get the commands)");
         do {
             System.out.println("Insert a command:");
@@ -46,88 +47,93 @@ public class SinningLopezCamiloJose {
                 } else {
                     running = false;
                 }
-            } else if (command.contains("add")) {
-                if (command.equals("addD")) {
-                    System.out.println("Insert the donation id");
-                    BigDecimal id = new BigDecimal(sc.nextInt());
-                    sc.nextLine();
-                    System.out.println("Insert the donation message");
-                    String msg = sc.nextLine();
-                    System.out.println("Insert the money");
-                    float money = sc.nextInt();
-                    addDonation(id,msg,money);
-                } else if (command.equals("addS")) {
-                    System.out.println("Insert the streamer id");
-                    BigDecimal id = new BigDecimal(sc.nextInt());
-                    sc.nextLine();
-                    System.out.println("Insert the Streamer username");
-                    String username = sc.nextLine();
-                    System.out.println("Insert the number of followers");
-                    float followers = sc.nextInt();
-                    addStreamer(id, username, followers);
-                } else if (command.equals("addV")) {
-                    System.out.println("Insert the viewer id");
-                    BigDecimal id = new BigDecimal(sc.next());
-                    sc.nextLine();
-                    System.out.println("Insert the viewer nickname");
-                    String nickname = sc.nextLine();
-                    System.out.println("Insert the hours watched");
-                    float hours = sc.nextInt();
-                    addViewer(id, nickname, hours);
-                }
-                saved = false;
-            } else if (command.contains("show")) {
-                if (command.equals("showD")) {
-                    System.out.println(showDonations());
-                } else if (command.equals("showS")) {
-                    System.out.println(showStreamers());
-                } else if (command.equals("showV")) {
-                    System.out.println(showViewers());
-                }
-            } else if (command.contains("sort")) {
-                if (command.equals("sortD")) {
-                    sortDonations();
-                    System.out.println(showDonations());
-                } else if (command.equals("sortS")) {
-                    sortStreamers();
-                    System.out.println(showStreamers());
-                } else if (command.equals("sortV")) {
-                    sortViewers();
-                    System.out.println(showViewers());
-                }
-                saved = false;
-            } else if (command.equals("save")) {
-                saveDonations();
-                saveStreamers();
-                saveViewers();
-                saved = true;
-                System.out.println("Saved");
-            } else if (command.contains("calc")) {
-                if (command.equals("calcD")) {
-                    System.out.println(calcDonations());
-                } else if (command.equals("calcS")) {
-                    System.out.println(calcStreamers());
-                } else if (command.equals("calcV")) {
-                    System.out.println(calcViewers());
-                }
             } else if (command.contains("help")) {
                 help();
             } else if (command.equals("generate")) {
                 myDonations = ad.read();
                 myStreamers = as.read();
                 myViewers = av.read();
-            } else if (command.contains("search")) {
-                BigDecimal id = new BigDecimal(command.substring(7));
-                if (command.contains("searchD")) {
-                    System.out.println(searchDonation(id));
-                } else if (command.contains("searchS")) {
-                    System.out.println(searchStreamer(id));
-                } else if (command.contains("searchV")) {
-                    System.out.println(searchViewer(id));
+                generated = true;
+            } 
+            if (generated) {
+                if (command.contains("add")) {
+                    if (command.equals("addD")) {
+                        System.out.println("Insert the donation id");
+                        BigDecimal id = new BigDecimal(sc.nextInt());
+                        sc.nextLine();
+                        System.out.println("Insert the donation message");
+                        String msg = sc.nextLine();
+                        System.out.println("Insert the money");
+                        float money = sc.nextInt();
+                        addDonation(id, msg, money);
+                    } else if (command.equals("addS")) {
+                        System.out.println("Insert the streamer id");
+                        BigDecimal id = new BigDecimal(sc.nextInt());
+                        sc.nextLine();
+                        System.out.println("Insert the Streamer username");
+                        String username = sc.nextLine();
+                        System.out.println("Insert the number of followers");
+                        float followers = sc.nextInt();
+                        addStreamer(id, username, followers);
+                    } else if (command.equals("addV")) {
+                        System.out.println("Insert the viewer id");
+                        BigDecimal id = new BigDecimal(sc.next());
+                        sc.nextLine();
+                        System.out.println("Insert the viewer nickname");
+                        String nickname = sc.nextLine();
+                        System.out.println("Insert the hours watched");
+                        float hours = sc.nextInt();
+                        addViewer(id, nickname, hours);
+                    }
+                    saved = false;
+                } else if (command.contains("show")) {
+                    if (command.equals("showD")) {
+                        System.out.println(showDonations());
+                    } else if (command.equals("showS")) {
+                        System.out.println(showStreamers());
+                    } else if (command.equals("showV")) {
+                        System.out.println(showViewers());
+                    }
+                } else if (command.contains("sort")) {
+                    if (command.equals("sortD")) {
+                        sortDonations();
+                        System.out.println(showDonations());
+                    } else if (command.equals("sortS")) {
+                        sortStreamers();
+                        System.out.println(showStreamers());
+                    } else if (command.equals("sortV")) {
+                        sortViewers();
+                        System.out.println(showViewers());
+                    }
+                    saved = false;
+                } else if (command.equals("save")) {
+                    saveDonations();
+                    saveStreamers();
+                    saveViewers();
+                    saved = true;
+                    System.out.println("Saved");
+                } else if (command.contains("calc")) {
+                    if (command.equals("calcD")) {
+                        System.out.println(calcDonations());
+                    } else if (command.equals("calcS")) {
+                        System.out.println(calcStreamers());
+                    } else if (command.equals("calcV")) {
+                        System.out.println(calcViewers());
+                    }
+                } else if (command.contains("search")) {
+                    BigDecimal id = new BigDecimal(command.substring(7));
+                    if (command.contains("searchD")) {
+                        System.out.println(searchDonation(id));
+                    } else if (command.contains("searchS")) {
+                        System.out.println(searchStreamer(id));
+                    } else if (command.contains("searchV")) {
+                        System.out.println(searchViewer(id));
+                    }
                 }
+            }else{
+                System.out.println("Write the command \"generate\" to continue");
             }
-
-            // </editor-fold>
+                // </editor-fold>
         } while (running);
 
     }
@@ -519,15 +525,15 @@ public class SinningLopezCamiloJose {
     }
 
     public static String showDonations() {
-        String  result = "The donation list is: "
-        +"\n--------------------------";
+        String result = "The donation list is: "
+                + "\n--------------------------";
         ListDonations p = new ListDonations();
         p = myDonations;
         while ((p != null) && (p.myDonation != null)) {
             result = result + "\nDonation: " + p.myDonation.idDonations
-            +"\nMessage: " + p.myDonation.msg
-            +"\nMoney: " + p.myDonation.money
-            +"\n---------------------------";
+                    + "\nMessage: " + p.myDonation.msg
+                    + "\nMoney: " + p.myDonation.money
+                    + "\n---------------------------";
             p = p.link;
         }
         return result;
