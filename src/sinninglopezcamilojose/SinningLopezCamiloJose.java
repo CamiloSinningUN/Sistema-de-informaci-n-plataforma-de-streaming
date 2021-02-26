@@ -61,32 +61,29 @@ public class SinningLopezCamiloJose {
             } 
             if (generated) {
                 if (command.contains("add")) {
-                    if (command.equals("addD")) {
-                        System.out.println("Insert the donation id");
-                        BigDecimal id = new BigDecimal(sc.nextInt());
-                        sc.nextLine();
-                        System.out.println("Insert the donation message");
-                        String msg = sc.nextLine();
-                        System.out.println("Insert the money");
-                        float money = sc.nextInt();
+                    if (command.contains("addD")) {
+                        String[] temp = command.split("\\(");
+                        String[] temp2 = temp[1].split("\\)");
+                        String[] temp3 = temp2[0].split(",");
+                        BigDecimal id = new BigDecimal(temp[0]);
+                        String msg = temp[1];
+                        float money = Float.parseFloat(temp[2]);
                         addDonation(id, msg, money);
-                    } else if (command.equals("addS")) {
-                        System.out.println("Insert the streamer id");
-                        BigDecimal id = new BigDecimal(sc.nextInt());
-                        sc.nextLine();
-                        System.out.println("Insert the Streamer username");
-                        String username = sc.nextLine();
-                        System.out.println("Insert the number of followers");
-                        float followers = sc.nextInt();
+                    } else if (command.contains("addS")) {
+                        String[] temp = command.split("\\(");
+                        String[] temp2 = temp[1].split("\\)");
+                        String[] temp3 = temp2[0].split(",");
+                        BigDecimal id = new BigDecimal(temp[0]);
+                        String username = temp[1];
+                        float followers = Float.parseFloat(temp[2]);
                         addStreamer(id, username, followers);
-                    } else if (command.equals("addV")) {
-                        System.out.println("Insert the viewer id");
-                        BigDecimal id = new BigDecimal(sc.next());
-                        sc.nextLine();
-                        System.out.println("Insert the viewer nickname");
-                        String nickname = sc.nextLine();
-                        System.out.println("Insert the hours watched");
-                        float hours = sc.nextInt();
+                    } else if (command.contains("addV")) {
+                        String[] temp = command.split("\\(");
+                        String[] temp2 = temp[1].split("\\)");
+                        String[] temp3 = temp2[0].split(",");
+                        BigDecimal id = new BigDecimal(temp[0]);
+                        String nickname = temp[1];
+                        float hours = Float.parseFloat(temp[2]);
                         addViewer(id, nickname, hours);
                     }
                     saved = false;
@@ -125,7 +122,10 @@ public class SinningLopezCamiloJose {
                         System.out.println(calcViewers());
                     }
                 } else if (command.contains("search")) {
-                    BigDecimal id = new BigDecimal(command.substring(7));
+                    String[] temp = command.split("\\(");
+                    String[] temp2 = temp[1].split("\\)");
+                    
+                    BigDecimal id = new BigDecimal(temp2[0]);
                     if (command.contains("searchD")) {
                         System.out.println(searchDonation(id));
                     } else if (command.contains("searchS")) {
@@ -156,9 +156,9 @@ public class SinningLopezCamiloJose {
         //todos los comandos
         System.out.println("to close the program: close");
         System.out.println("to read the records: generate");
-        System.out.println("to add a donation: addD");
-        System.out.println("to add a streamer: addS");
-        System.out.println("to add a viewer: addV");
+        System.out.println("to add a donation: addD(id,message,money)");
+        System.out.println("to add a streamer: addS(id,username,followers)");
+        System.out.println("to add a viewer: addV(id,nickname,hours)");
         System.out.println("to show donations: showD");
         System.out.println("to show streamers: showS");
         System.out.println("to show viewers: showV");
@@ -169,6 +169,9 @@ public class SinningLopezCamiloJose {
         System.out.println("to show max, min, and average of donations: calcD");
         System.out.println("to show max, min, and average of streamer: calcS");
         System.out.println("to show max, min, and average of viewer: calcV");
+        System.out.println("to search a donation: searchD(id)");
+        System.out.println("to search a streamer: searchS(id)");
+        System.out.println("to search a viewer: searchV(id)");
     }
 
     //<editor-fold defaultstate="open" desc="Viewer">
@@ -187,11 +190,12 @@ public class SinningLopezCamiloJose {
         ListViewers p = new ListViewers();
         ListViewers q = new ListViewers();
         p = myViewers;
-
+        
         while ((p.link != null) && (p.link.myViewer != null)) {
             q = myViewers;
             while ((q.link != null) && (q.link.myViewer != null)) {
                 if (q.myViewer.Hours > q.link.myViewer.Hours) {
+                    //Se intercambian q y q.link
                     ListViewers temp = new ListViewers();
                     temp.myViewer = q.myViewer;
                     q.myViewer = q.link.myViewer;
@@ -208,6 +212,7 @@ public class SinningLopezCamiloJose {
      * @return los resultados con formato
      */
     public static String calcViewers() {
+        //Inicialización de variables
         ListViewers min = new ListViewers();
         float minHours;
         ListViewers max = new ListViewers();
@@ -223,11 +228,14 @@ public class SinningLopezCamiloJose {
         maxHours = p.myViewer.Hours;
         min.myViewer = p.myViewer;
         max.myViewer = p.myViewer;
+        //Se recorre la lista
         while ((p != null) && (p.myViewer != null)) {
+            //Mayor
             if (p.myViewer.Hours > maxHours) {
                 maxHours = p.myViewer.Hours;
                 max.myViewer = p.myViewer;
             }
+            //Menor
             if (p.myViewer.Hours < minHours) {
                 minHours = p.myViewer.Hours;
                 min.myViewer = p.myViewer;
@@ -263,10 +271,12 @@ public class SinningLopezCamiloJose {
     public static String searchViewer(BigDecimal idViewer) {
         ListViewers p = new ListViewers();
         p = myViewers;
+        //Se recorre la lista hasta encontrar el id
         while ((p.myViewer.idViewer != idViewer) && (p != null)) {
             p = p.link;
         }
-
+        
+        //Se valida y se entrega el resultado
         String result;
         if (p.myViewer.idViewer == idViewer) {
             result = "The viewer was found"
@@ -287,10 +297,11 @@ public class SinningLopezCamiloJose {
      * @param hours 
      */
     public static void addViewer(BigDecimal id, String nickname, float hours) {
-        Viewer d = new Viewer(id, nickname, hours);
+        Viewer d = new Viewer(id, nickname, hours); //Nuevo objeto
         ListViewers p = new ListViewers();
         p = myViewers;
-
+        
+        //Se inserta el nuevo objeto al final de la lista
         if (p.myViewer == null) {
             myViewers.myViewer = d;
         } else {
