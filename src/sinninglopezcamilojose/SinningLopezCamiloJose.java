@@ -9,6 +9,10 @@ import Lists.ListViewers;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
+/**
+ * Clase principal
+ * @author camil
+ */
 public class SinningLopezCamiloJose {
 
     public static ListDonations myDonations = new ListDonations();
@@ -19,7 +23,7 @@ public class SinningLopezCamiloJose {
     public static ArchiveViewers av = new ArchiveViewers();
 
     public static boolean saved = false;
-
+    
     public static void main(String[] args) {
 
         FE f = new FE();
@@ -137,11 +141,17 @@ public class SinningLopezCamiloJose {
         } while (running);
 
     }
-
+    
+    /**
+     * Termina la ejecución del programa
+     */
     public static void close() {
         System.exit(0);
     }
-
+    
+    /**
+     * Muestra los comandos que posee el programa
+     */
     public static void help() {
         //todos los comandos
         System.out.println("to close the program: close");
@@ -162,10 +172,17 @@ public class SinningLopezCamiloJose {
     }
 
     //<editor-fold defaultstate="open" desc="Viewer">
+    
+    /**
+     * Escribe en el archivo los cambios hechos en la lista Viewers
+     */
     public static void saveViewers() {
         av.write(myViewers);
     }
-
+    
+    /**
+     * Ordena de menor a mayor la lista de Viewers segun el numero de horas vistas
+     */
     public static void sortViewers() {
         ListViewers p = new ListViewers();
         ListViewers q = new ListViewers();
@@ -186,6 +203,10 @@ public class SinningLopezCamiloJose {
         }
     }
 
+    /**
+     * Encuentra el máximo, mínimo y el promedio de las horas vistas por los viewers
+     * @return los resultados con formato
+     */
     public static String calcViewers() {
         ListViewers min = new ListViewers();
         float minHours;
@@ -233,7 +254,12 @@ public class SinningLopezCamiloJose {
                 + "\nAverage hours: " + promHours;
         return result;
     }
-
+    
+    /**
+     * Busca un viewer dada su id
+     * @param idViewer
+     * @return La correspondiente información del viewer buscado
+     */
     public static String searchViewer(BigDecimal idViewer) {
         ListViewers p = new ListViewers();
         p = myViewers;
@@ -254,6 +280,12 @@ public class SinningLopezCamiloJose {
         return result;
     }
 
+    /**
+     * Agrega un elemento a la lista de viewers
+     * @param id
+     * @param nickname
+     * @param hours 
+     */
     public static void addViewer(BigDecimal id, String nickname, float hours) {
         Viewer d = new Viewer(id, nickname, hours);
         ListViewers p = new ListViewers();
@@ -270,7 +302,11 @@ public class SinningLopezCamiloJose {
             q.myViewer = d;
         }
     }
-
+    
+    /**
+     * Muestra los elementos que hay en el momento en la lista de viewers
+     * @return La lista con formato
+     */
     public static String showViewers() {
         String result;
         result = "The viewers list is: "
@@ -289,10 +325,17 @@ public class SinningLopezCamiloJose {
     //</editor-fold>
 
     //<editor-fold defaultstate="open" desc="Streamer">
+    
+    /**
+     * Escribe en el archivo los cambios hechos en la lista Streamers
+     */
     public static void saveStreamers() {
         as.write(myStreamers);
     }
 
+    /**
+     * Ordena de menor a mayor la lista de streamers segun el numero de seguidores
+     */
     public static void sortStreamers() {
         ListStreamers p = new ListStreamers();
         ListStreamers q = new ListStreamers();
@@ -313,6 +356,10 @@ public class SinningLopezCamiloJose {
         }
     }
 
+    /**
+     * Encuentra el máximo, mínimo y el promedio de los seguidores que poseen los streamers
+     * @return los resultados con formato
+     */
     public static String calcStreamers() {
         ListStreamers min = new ListStreamers();
         float minFollowers;
@@ -362,6 +409,11 @@ public class SinningLopezCamiloJose {
 
     }
 
+    /**
+     * Busca un streamer dada su id
+     * @param idStreamer
+     * @return La correspondiente información del streamer buscado
+     */
     public static String searchStreamer(BigDecimal idStreamer) {
         ListStreamers p = new ListStreamers();
         p = myStreamers;
@@ -381,6 +433,12 @@ public class SinningLopezCamiloJose {
         return result;
     }
 
+    /**
+     * Agrega un elemento a la lista de streamers
+     * @param id
+     * @param username
+     * @param followers 
+     */
     public static void addStreamer(BigDecimal id, String username, float followers) {
 
         Streamer d = new Streamer(id, username, followers);
@@ -399,6 +457,10 @@ public class SinningLopezCamiloJose {
         }
     }
 
+    /**
+     * Muestra los elementos que hay en el momento en la lista de streamers
+     * @return La lista con formato
+     */
     public static String showStreamers() {
         String result = "The Streamers list is: "
                 + "\n--------------------------";
@@ -416,10 +478,17 @@ public class SinningLopezCamiloJose {
     //</editor-fold>
 
     //<editor-fold defaultstate="open" desc="Donation">}
+    
+    /**
+     * Escribe en el archivo los cambios hechos en la lista donaciones
+     */
     public static void saveDonations() {
         ad.write(myDonations);
     }
 
+    /**
+     * Ordena de menor a mayor la lista de donaciones segun cantidad de dinero
+     */
     public static void sortDonations() {
         ListDonations p = new ListDonations();
         ListDonations q = new ListDonations();
@@ -440,6 +509,10 @@ public class SinningLopezCamiloJose {
         }
     }
 
+    /**
+     * Encuentra el máximo, mínimo y el promedio de la cantidad de las donaciones
+     * @return los resultados con formato
+     */
     public static String calcDonations() {
         ListDonations min = new ListDonations();
         float minMoney;
@@ -488,6 +561,11 @@ public class SinningLopezCamiloJose {
         return result;
     }
 
+    /**
+     * Busca una donación dada su id
+     * @param idDonation
+     * @return La correspondiente información de la donación buscado
+     */
     public static String searchDonation(BigDecimal idDonation) {
         ListDonations p = new ListDonations();
         p = myDonations;
@@ -507,6 +585,12 @@ public class SinningLopezCamiloJose {
         return result;
     }
 
+    /**
+     * Agrega un elemento a la lista de donaciones
+     * @param id
+     * @param msg
+     * @param money
+     */
     public static void addDonation(BigDecimal id, String msg, float money) {
         Donations d = new Donations(id, msg, money);
         ListDonations p = new ListDonations();
@@ -524,6 +608,10 @@ public class SinningLopezCamiloJose {
         }
     }
 
+    /**
+     * Muestra los elementos que hay en el momento en la lista de donaciones
+     * @return La lista con formato
+     */
     public static String showDonations() {
         String result = "The donation list is: "
                 + "\n--------------------------";

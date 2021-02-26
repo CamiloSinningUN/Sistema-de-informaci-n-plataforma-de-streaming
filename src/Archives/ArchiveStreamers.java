@@ -14,7 +14,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import sinninglopezcamilojose.Streamer;
 
+/**
+ * Clase para la lectura y escritura del archivo para los streamers
+ * @author camil
+ */
 public class ArchiveStreamers {
+    
+    /**
+     * Escribe la información de la lista en un archivo de tipo .txt
+     * @param myStreamers 
+     */
     public void write(ListStreamers myStreamers) {
         File archiveStreamers;
         FileWriter write;
@@ -52,6 +61,10 @@ public class ArchiveStreamers {
 
     }
 
+     /**
+     * Lee el archivo de streamers y lo convierte en una lista
+     * @return La lista de streamers
+     */
     public ListStreamers read() {
         ListStreamers myStreamers = new ListStreamers();
         File archiveStreamers;

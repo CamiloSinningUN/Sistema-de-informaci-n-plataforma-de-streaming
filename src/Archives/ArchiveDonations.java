@@ -14,8 +14,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import sinninglopezcamilojose.Donations;
 
+/**
+ * Clase para la lectura y escritura del archivo para las donaciones
+ * @author camil
+ */
 public class ArchiveDonations {
-
+        
+    /**
+     * Escribe la información de la lista en un archivo de tipo .txt
+     * @param myDonations 
+     */
     public void write(ListDonations myDonations) {
         File archiveDonations;
         FileWriter write;
@@ -52,7 +60,11 @@ public class ArchiveDonations {
         }
 
     }
-
+    
+    /**
+     * Lee el archivo de donaciones y lo convierte en una lista
+     * @return La lista de donaciones
+     */
     public ListDonations read() {
         ListDonations myDonations = new ListDonations();
         File archiveDonations;
@@ -110,5 +122,5 @@ public class ArchiveDonations {
         }
         return myDonations;
     }
-
+    
 }

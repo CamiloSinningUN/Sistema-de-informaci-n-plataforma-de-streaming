@@ -14,7 +14,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import sinninglopezcamilojose.Viewer;
 
+/**
+ * Clase para la lectura y escritura del archivo para los viewers
+ * @author camil
+ */
 public class ArchiveViewers {
+    
+    /**
+     * Escribe la información de la lista en un archivo de tipo .txt
+     * @param myViewers 
+     */
     public void write(ListViewers myViewers) {
         File archiveViewers;
         FileWriter write;
@@ -52,6 +61,10 @@ public class ArchiveViewers {
 
     }
 
+     /**
+     * Lee el archivo de viewers y lo convierte en una lista
+     * @return La lista de viewers
+     */
     public ListViewers read() {
         ListViewers myViewers = new ListViewers();
         File archiveViewers;
